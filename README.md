@@ -40,12 +40,12 @@ To get a local copy up and running, follow these simple steps.
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/quidax-price-ticker.git
+   git clone https://github.com/OnuegbuUdochukwu/Cryptocurrency-Price-Ticker.git
    ```
 
 2. Navigate to the project directory:
    ```bash
-   cd quidax-price-ticker
+   cd Cryptocurrency-Price-Ticker.git
    ```
 
 3. Run the application using the Maven wrapper:

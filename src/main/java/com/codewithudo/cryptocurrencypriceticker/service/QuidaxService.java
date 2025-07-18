@@ -12,7 +12,7 @@ import java.util.Map;
 @Service
 public class QuidaxService {
 
-    private static final String QUIDAX_API_BASE_URL = "https://api.quidax.com";
+    private static final String QUIDAX_API_BASE_URL = "https://app.quidax.io";
     private final RestTemplate restTemplate;
 
     public QuidaxService() {

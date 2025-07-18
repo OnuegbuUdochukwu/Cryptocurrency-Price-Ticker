@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 public class Ticker {
     private String low;
     private String high;
+
+    @JsonProperty("vol")
     private String volume;
 
     @JsonProperty("last")

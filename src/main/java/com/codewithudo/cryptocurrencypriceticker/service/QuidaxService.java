@@ -2,6 +2,7 @@ package com.codewithudo.cryptocurrencypriceticker.service;
 
 import com.codewithudo.cryptocurrencypriceticker.dto.MarketData;
 import com.codewithudo.cryptocurrencypriceticker.dto.QuidaxResponse;
+import com.codewithudo.cryptocurrencypriceticker.dto.SingleTickerResponse;
 import com.codewithudo.cryptocurrencypriceticker.dto.Ticker;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
@@ -23,7 +24,6 @@ public class QuidaxService {
         this.restTemplate = new RestTemplate();
     }
 
-    // NEW, CORRECTED CODE
     public Map<String, Ticker> getTickers() {
         String url = QUIDAX_API_BASE_URL + "/api/v1/markets/tickers";
 
@@ -60,6 +60,38 @@ public class QuidaxService {
 
     public Ticker getTicker(String market) {
         String url = QUIDAX_API_BASE_URL + "/api/v1/markets/tickers/" + market;
-        return restTemplate.getForObject(url, Ticker.class);
+//        ResponseEntity<QuidaxResponse> response = restTemplate.exchange(
+//                url,
+//                HttpMethod.GET,
+//                null,
+//                new ParameterizedTypeReference<>() {}
+//        );
+//
+//        QuidaxResponse body = response.getBody();
+//
+//        Map<String, Ticker> unwrappedTickers = getStringTickerMap(body);
+//
+//        for (Map.Entry<String, Ticker> entry : unwrappedTickers.entrySet()) {
+//            Ticker ticker = entry.getValue();
+//            if (ticker != null) {
+//                return ticker;
+//            }
+//        }
+//        return null;
+
+
+        //Cleaner Code, More Efficient
+        // 1. Tell RestTemplate to expect our new SingleTickerResponse object
+        SingleTickerResponse response = restTemplate.getForObject(url, SingleTickerResponse.class);
+
+        // 2. Unwrap the nested data to get the final Ticker object
+        if (response != null && "success".equals(response.getStatus())) {
+            MarketData marketData = response.getData();
+            if (marketData != null) {
+                return marketData.getTicker();
+            }
+        }
+
+        return null;
     }
 }
